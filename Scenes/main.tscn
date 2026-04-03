@@ -1,3 +1,50 @@
 [gd_scene format=3 uid="uid://biyaug431t7ei"]
 
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/proto_controller/proto_controller.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://c7dtn8wnss6pa" path="res://Scenes/vampire.tscn" id="2_bo1nx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_bo1nx"]
+sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
+
+[sub_resource type="Environment" id="Environment_8gbba"]
+background_mode = 2
+sky = SubResource("Sky_bo1nx")
+tonemap_mode = 2
+glow_enabled = true
+
 [node name="Main" type="Node3D" unique_id=1921423536]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2034192569]
+environment = SubResource("Environment_8gbba")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=299993111]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+sky_mode = 2
+
+[node name="FLoor" type="CSGBox3D" parent="." unique_id=827238023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.041845918, 0)
+use_collision = true
+size = Vector3(15.964844, 0.08496094, 15.993164)
+
+[node name="ProtoController" parent="." unique_id=599851929 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02922535, 0.0006341934, -0.041902542)
+
+[node name="Vampire" parent="." unique_id=1110000005 instance=ExtResource("2_bo1nx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049001098, 0.14649457, -4.8085465)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2022851366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.065248966, 1.9824839, -7.3750997)
+size = Vector3(16.212036, 4.964966, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D" unique_id=36986891]
+transform = Transform3D(-0.014450803, 0, -0.9998956, 0, 1, 0, 0.9998956, 0, -0.014450803, 8.273186, -0.045251846, 7.3869023)
+size = Vector3(16.212036, 4.964966, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1949052633]
+transform = Transform3D(-0.014450803, 0, -0.9998956, 0, 1, 0, 0.9998956, 0, -0.014450803, -7.697459, 1.9830503, 0.26211166)
+size = Vector3(16.212036, 4.964966, 1)

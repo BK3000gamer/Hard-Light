@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c7dtn8wnss6pa"]
+
+[ext_resource type="Texture2D" uid="uid://eibjlb8ssjh1" path="res://Sprites/TestSprites/halloween-vampire-character-collection-posititon-2.PNG" id="1_m1etx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vowtw"]
+
+[node name="Vampire" type="CharacterBody3D" unique_id=1110000005]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=443500378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0032539, 0)
+shape = SubResource("CapsuleShape3D_vowtw")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=915660434]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.91013986, 0)
+texture = ExtResource("1_m1etx")
