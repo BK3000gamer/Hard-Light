@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bs72ogkvdd7d6"]
 
-[ext_resource type="Script" uid="uid://bctr63qrhmdo" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
-[ext_resource type="Script" uid="uid://fqjxn8puyj18" path="res://Addons/proto_controller/flashlight.gd" id="2_mpk8l"]
+[ext_resource type="Script" uid="uid://bctr63qrhmdo" path="res://Addons/proto_controller/proto_controller.gd" id="1_ucva2"]
+[ext_resource type="Script" uid="uid://fqjxn8puyj18" path="res://Scripts/flashlight.gd" id="2_mpk8l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_njsuj"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
