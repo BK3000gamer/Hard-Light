@@ -58,5 +58,7 @@ script = ExtResource("2_mpk8l")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D/Flashlight" unique_id=1604275369]
 light_energy = 3.0
-spot_range = 15.0
+light_volumetric_fog_energy = 0.1
+spot_range = 100.0
 spot_angle = 25.0
+spot_angle_attenuation = 0.5
