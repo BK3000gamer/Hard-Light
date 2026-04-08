@@ -22,5 +22,6 @@ func react_to_light(intensity):
 
 func die():
 	print("Monster died")
+	remove_from_group("monsters")
 	queue_free()
 

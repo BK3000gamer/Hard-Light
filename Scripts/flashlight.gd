@@ -4,10 +4,16 @@ class_name Flashlight
 
 @onready var light = get_node("SpotLight3D")
 
+const FLASHLIGHT_MAX_BEAM_ANGLE = 35
+const FLASHLIGHT_MIN_BEAM_ANGLE = 20
+const FLASHLIGHT_MAX_INTENSITY = 15
+const FLASHLIGHT_MIN_INTENSITY = 3
+
 var beam_angle = 25.0
 var light_intensity = 3.0
 var debug_enabled = true  # Toggle this to show/hide debug visualization
 var use_mesh_debug = true  # Use mesh-based cone debug visualization
+var light_battery = 100.0  # Percentage of battery remaining
 
 @onready var debug_cone: MeshInstance3D
 var light_area: Area3D
@@ -88,7 +94,10 @@ func create_light_area():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var mouse_button_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	light.visible = mouse_button_held
+	if light_battery > 0:
+		light.visible = mouse_button_held
+	else:
+		light.visible = false
 	
 	if debug_enabled and use_mesh_debug and debug_cone:
 		var was_visible = debug_cone.visible
@@ -99,9 +108,10 @@ func _process(delta: float) -> void:
 	if light_area:
 		light_area.monitoring = mouse_button_held
 
-	if mouse_button_held:
+	if mouse_button_held and light_battery > 0:
 		check_monsters()
 		update_light_visuals()
+		calculate_battery_drain(delta)
 
 func check_monsters():
 	if not light_area:
@@ -137,3 +147,14 @@ func update_light_visuals():
 		debug_cone.mesh.height = range
 		debug_cone.position.z = -range / 2
 		debug_cone.mesh.bottom_radius = tan(deg_to_rad(beam_angle / 2)) * range
+
+func calculate_battery_drain(delta):
+	var drain_rate = 5.0  # Percentage drained per second at full intensity and max beam angle
+	var intensity_factor = light_intensity / FLASHLIGHT_MAX_INTENSITY
+	var beam_factor = beam_angle / FLASHLIGHT_MAX_BEAM_ANGLE
+
+	var drain_amount = drain_rate * intensity_factor * beam_factor * delta
+
+	light_battery = max(light_battery - drain_amount, 0)
+	print("Battery level: ", light_battery, "%")
+

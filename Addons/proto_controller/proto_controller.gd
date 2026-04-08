@@ -14,10 +14,6 @@ extends CharacterBody3D
 ## Name of Input Action to Decrease flashlight intensity.
 @export var input_flashlight_intensity_down : String = "flashlight_intensity_down"
 
-const FLASHLIGHT_MAX_BEAM_ANGLE = 35
-const FLASHLIGHT_MIN_BEAM_ANGLE = 20
-const FLASHLIGHT_MAX_INTENSITY = 15
-const FLASHLIGHT_MIN_INTENSITY = 3
 
 var mouse_captured : bool = false
 var look_rotation : Vector2
@@ -46,16 +42,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed(input_flashlight_intensity_up) and flashlight.light_intensity < FLASHLIGHT_MAX_INTENSITY:
+	if Input.is_action_pressed(input_flashlight_intensity_up) and flashlight.light_intensity < flashlight.FLASHLIGHT_MAX_INTENSITY:
 		flashlight.light_intensity += delta * 20
 
-	if Input.is_action_pressed(input_flashlight_intensity_down) and flashlight.light_intensity > FLASHLIGHT_MIN_INTENSITY:
+	if Input.is_action_pressed(input_flashlight_intensity_down) and flashlight.light_intensity > flashlight.FLASHLIGHT_MIN_INTENSITY:
 		flashlight.light_intensity -= delta * 20
 
-	if Input.is_action_pressed(input_flashlight_beam_up) and flashlight.beam_angle < FLASHLIGHT_MAX_BEAM_ANGLE:
+	if Input.is_action_pressed(input_flashlight_beam_up) and flashlight.beam_angle < flashlight.FLASHLIGHT_MAX_BEAM_ANGLE:
 		flashlight.beam_angle += 2
 
-	if Input.is_action_pressed(input_flashlight_beam_down) and flashlight.beam_angle > FLASHLIGHT_MIN_BEAM_ANGLE:
+	if Input.is_action_pressed(input_flashlight_beam_down) and flashlight.beam_angle > flashlight.FLASHLIGHT_MIN_BEAM_ANGLE:
 		flashlight.beam_angle -= 2
 
 
