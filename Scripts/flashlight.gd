@@ -4,10 +4,10 @@ class_name Flashlight
 
 @onready var light = get_node("SpotLight3D")
 
-const FLASHLIGHT_MAX_BEAM_ANGLE = 35
-const FLASHLIGHT_MIN_BEAM_ANGLE = 20
-const FLASHLIGHT_MAX_INTENSITY = 15
-const FLASHLIGHT_MIN_INTENSITY = 3
+@export var FLASHLIGHT_MAX_BEAM_ANGLE = 35
+@export var FLASHLIGHT_MIN_BEAM_ANGLE = 20
+@export var FLASHLIGHT_MAX_INTENSITY = 15
+@export var FLASHLIGHT_MIN_INTENSITY = 3
 
 var beam_angle = 25.0
 var light_intensity = 3.0
