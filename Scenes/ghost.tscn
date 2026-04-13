@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://qyhsv7wnfjpl"]
+
+[ext_resource type="Texture2D" uid="uid://brsibo5f6a5ul" path="res://Assets/Sprites/TestSprites/halloween-ghost-character-collection-with-flat-design.png" id="1_3mxmt"]
+[ext_resource type="Script" uid="uid://cvo2gstl1w5nh" path="res://Scenes/ghost.gd" id="2_ghost"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vpdtx"]
+size = Vector3(1.1716309, 0.96875, 0.036865234)
+
+[node name="Ghost" type="CharacterBody3D" unique_id=1198102484]
+script = ExtResource("2_ghost")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1094743867]
+shape = SubResource("BoxShape3D_vpdtx")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1834587777]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
+texture = ExtResource("1_3mxmt")

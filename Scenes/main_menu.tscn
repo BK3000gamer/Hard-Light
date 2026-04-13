@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bacl1yje8ixh0"]
+
+[ext_resource type="Script" uid="uid://c31yrdrikja6j" path="res://Scripts/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://do6vwm1odll" path="res://Assets/HARDLIGHT_main_menu.png" id="2_48xlc"]
+
+[node name="main_menu" type="Control" unique_id=1255760534]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=144998640]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.003921569, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=1946466945]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_48xlc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/TextureRect" unique_id=605201818]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.5
+offset_top = -64.0
+offset_right = 47.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="ColorRect/TextureRect" unique_id=1450551255]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37800002
+anchor_top = 0.23200001
+anchor_right = 0.37800002
+anchor_bottom = 0.23200001
+offset_left = -198.76001
+offset_top = -105.56001
+offset_right = 198.23999
+offset_bottom = 105.43999
+
+[node name="Test" type="Button" parent="ColorRect/TextureRect" unique_id=208467036]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.379
+anchor_top = 0.51100004
+anchor_right = 0.379
+anchor_bottom = 0.51100004
+offset_left = -200.68
+offset_top = -106.880066
+offset_right = 199.32
+offset_bottom = 106.119934
+
+[node name="Quit" type="Button" parent="ColorRect/TextureRect" unique_id=419540368]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.38000003
+anchor_top = 0.78700006
+anchor_right = 0.38000003
+anchor_bottom = 0.78700006
+offset_left = -199.60004
+offset_top = -106.96008
+offset_right = 198.39996
+offset_bottom = 107.03992
+
+[node name="Label" type="Label" parent="ColorRect/TextureRect" unique_id=42858697]
+layout_mode = 0
+offset_left = 905.0
+offset_top = 83.0
+offset_right = 1000.0
+offset_bottom = 106.0
+text = "HARD LIGHT"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="ColorRect/TextureRect/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="ColorRect/TextureRect/Test" to="." method="_on_test_pressed"]
+[connection signal="pressed" from="ColorRect/TextureRect/Quit" to="." method="_on_quit_pressed"]

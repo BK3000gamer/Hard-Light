@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bctr63qrhmdo" path="res://Addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://fqjxn8puyj18" path="res://Scripts/flashlight.gd" id="2_mpk8l"]
+[ext_resource type="Script" uid="uid://dyyrks2c08keh" path="res://Addons/proto_controller/hud.gd" id="3_62upf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_njsuj"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -60,3 +61,24 @@ script = ExtResource("2_mpk8l")
 light_energy = 3.0
 spot_range = 25.0
 spot_angle = 25.0
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=173035789]
+script = ExtResource("3_62upf")
+
+[node name="Control" type="Control" parent="HUD" unique_id=123055303]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BatteryLevel" type="ProgressBar" parent="HUD/Control" unique_id=427253042]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 472.0
+grow_vertical = 0
+step = 1.0
