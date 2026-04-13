@@ -14,6 +14,8 @@ var light_intensity = 3.0
 var debug_enabled = true  # Toggle this to show/hide debug visualization
 var use_mesh_debug = true  # Use mesh-based cone debug visualization
 var light_battery = 100.0  # Percentage of battery remaining
+var reloading = false
+var _reload_timer: Timer = null
 
 @onready var debug_cone: MeshInstance3D
 var light_area: Area3D
@@ -26,6 +28,11 @@ func _ready() -> void:
 	if use_mesh_debug:
 		create_debug_cone()
 		print("Debug cone created: ", debug_cone != null)
+	_reload_timer = Timer.new()
+	_reload_timer.one_shot = true
+	_reload_timer.wait_time = 2.0
+	_reload_timer.connect("timeout", Callable(self, "_on_reload_finished"))
+	add_child(_reload_timer)
 
 
 # Debug visual to see the flashlight's area
@@ -94,7 +101,7 @@ func create_light_area():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var mouse_button_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	if light_battery > 0:
+	if light_battery > 0 and not reloading:
 		light.visible = mouse_button_held
 	else:
 		light.visible = false
@@ -108,7 +115,7 @@ func _process(delta: float) -> void:
 	if light_area:
 		light_area.monitoring = mouse_button_held
 
-	if mouse_button_held and light_battery > 0:
+	if mouse_button_held and light_battery > 0 and not reloading:
 		check_monsters()
 		update_light_visuals()
 		calculate_battery_drain(delta)
@@ -156,5 +163,16 @@ func calculate_battery_drain(delta):
 	var drain_amount = drain_rate * intensity_factor * beam_factor * delta
 
 	light_battery = max(light_battery - drain_amount, 0)
-	print("Battery level: ", light_battery, "%")
+	if light_battery <= 0:
+		reload_battery()
+
+func reload_battery():
+	print("Reloading...")
+	reloading = true
+	_reload_timer.start()
+
+func _on_reload_finished():
+	light_battery = 100.0
+	reloading = false
+	print("Battery reloaded!")
 

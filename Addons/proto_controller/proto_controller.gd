@@ -24,21 +24,24 @@ var look_rotation : Vector2
 @onready var flashlight : Flashlight = get_node("Head/Camera3D/Flashlight") as Flashlight
 
 func _ready() -> void:
+	add_to_group("player")
 	check_input_mappings()
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
 
-func _unhandled_input(event: InputEvent) -> void:
-	# Mouse capturing
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+func _input(event: InputEvent) -> void:
+	# Mouse capturing - use _input so HUD clicks don't block capture
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		capture_mouse()
-	if Input.is_key_pressed(KEY_ESCAPE):
+	if event is InputEventKey and event.keycode == KEY_ESCAPE and event.pressed:
 		release_mouse()
-	
-	# Look around
+
+	# Look around - use _input so HUD doesn't block mouse motion
 	if mouse_captured and event is InputEventMouseMotion:
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			rotate_look(event.relative)
+		rotate_look(event.relative)
+
+func _unhandled_input(event: InputEvent) -> void:
+	pass
 
 
 func _physics_process(delta: float) -> void:

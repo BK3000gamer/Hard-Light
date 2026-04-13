@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmtklyoriwteg"
-path.s3tc="res://.godot/imported/hand-drawn-sable-moth.png-c710c43fe95503cf976f59889725a543.s3tc.ctex"
+path.s3tc="res://.godot/imported/hand-drawn-sable-moth.png-22a56406c835b370c7aaf3624d46371f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Sprites/TestSprites/hand-drawn-sable-moth.png"
-dest_files=["res://.godot/imported/hand-drawn-sable-moth.png-c710c43fe95503cf976f59889725a543.s3tc.ctex"]
+source_file="res://Assets/Sprites/TestSprites/hand-drawn-sable-moth.png"
+dest_files=["res://.godot/imported/hand-drawn-sable-moth.png-22a56406c835b370c7aaf3624d46371f.s3tc.ctex"]
 
 [params]
 
