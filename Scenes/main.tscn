@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://biyaug431t7ei"]
 
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Addons/proto_controller/proto_controller.tscn" id="1_jjgbg"]
-[ext_resource type="Script" path="res://Scenes/main.gd" id="1_kry3j"]
+[ext_resource type="Script" uid="uid://bjnps2irybplv" path="res://Scenes/main.gd" id="1_kry3j"]
 [ext_resource type="PackedScene" uid="uid://c7dtn8wnss6pa" path="res://Scenes/vampire.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://dstbk7ve2grvr" path="res://Scenes/moth.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://qyhsv7wnfjpl" path="res://Scenes/ghost.tscn" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://c66b8xptqbfek" path="res://Scripts/SpawnManager.gd" id="6_21xkr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -20,7 +21,11 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_jjvhh"]
-vertices = PackedVector3Array(-12.792, 0.5, -23.558105, -12.792, 0.5, 13.691895, 12.708, 0.5, 13.691895, 12.708, 0.5, -23.558105)
+vertices = PackedVector3Array(-4.88916, 0.5, -42.911095, -4.88916, 0.5, 13.588905, 4.86084, 0.5, 13.588905, 4.86084, 0.5, -42.911095)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_kry3j"]
+vertices = PackedVector3Array(-8.900173, 4.515035, -41.883545, -8.900173, 4.515035, 0.11645508, -2.9001732, 4.515035, 0.11645508, -2.9001732, 4.515035, -41.883545)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [node name="Main" type="Node3D" unique_id=1921423536]
@@ -38,35 +43,79 @@ sky_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02922535, 0.0006341934, -0.041902542)
 
 [node name="Vampire" parent="." unique_id=1110000005 instance=ExtResource("2_bo1nx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.808314, 0.9585511, -21.796528)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2581282, 0.9585511, -42.002396)
 
 [node name="Moth" parent="." unique_id=1637803805 instance=ExtResource("3_8gbba")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.705985, 3.0767496, -18.49754)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3913183, 3.0767496, -41.233185)
 
 [node name="ghost" parent="." unique_id=1198102484 instance=ExtResource("4_jjvhh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.549074, 2.3768349, -21.868805)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.815051, 2.3768349, -41.81246)
 
 [node name="ghost2" parent="." unique_id=1213474951 instance=ExtResource("4_jjvhh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.195304, 2.0350046, -18.972733)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1751194, 2.0350046, -39.33233)
 
 [node name="Vampire2" parent="." unique_id=48890438 instance=ExtResource("2_bo1nx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9565582, 1.0703795, -16.553082)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9565582, 1.0703795, -40.136192)
 
 [node name="Moth2" parent="." unique_id=531620511 instance=ExtResource("3_8gbba")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3008075, 4.549731, -16.018036)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.720508, 4.549731, -41.92407)
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1654811086]
+[node name="FloorNav" type="NavigationRegion3D" parent="." unique_id=1654811086]
 navigation_mesh = SubResource("NavigationMesh_jjvhh")
 
-[node name="FLoor" type="CSGBox3D" parent="NavigationRegion3D" unique_id=827238023]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -4.962053)
+[node name="FLoor" type="CSGBox3D" parent="FloorNav" unique_id=827238023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0036010742, -0.5, -14.638548)
 use_collision = true
-size = Vector3(26.584, 1, 38.192104)
+size = Vector3(11.525024, 1, 57.545097)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1838739975]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.721046, 1.5854487, -10.392132)
-size = Vector3(1, 4.1708984, 27.282715)
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=557806295]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.01790762, 7.3493648, -20.064617)
+visible = false
+use_collision = true
+size = Vector3(1, 11.895935, 46.627686)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1986740312]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.580481, 1.5854487, -10.392132)
-size = Vector3(1, 4.1708984, 27.282715)
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1206408291]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.0126035735, 3.5160813, -42.850063)
+use_collision = true
+size = Vector3(1, 7.000366, 11.8046875)
+
+[node name="LeftWallNav" type="NavigationRegion3D" parent="." unique_id=159842034]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -9.659179, -2.3550334, 0)
+navigation_mesh = SubResource("NavigationMesh_kry3j")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LeftWallNav" unique_id=966319733]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.889553, 3.5150354, -20.941772)
+use_collision = true
+size = Vector3(1, 7.02124, 42.883545)
+
+[node name="RightWallNav" type="NavigationRegion3D" parent="." unique_id=403008163]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 9.672956, 9.391141, 0)
+navigation_mesh = SubResource("NavigationMesh_kry3j")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RightWallNav" unique_id=610021684]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.889553, 3.5150354, -20.941772)
+use_collision = true
+size = Vector3(1, 7.02124, 42.883545)
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=1069873664]
+
+[node name="FloorSpawn1" type="Marker3D" parent="SpawnPoints" unique_id=2053894771 groups=["floor_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0756154, 0.49438906, -36.174187)
+
+[node name="FloorSpawn2" type="Marker3D" parent="SpawnPoints" unique_id=1097340998 groups=["floor_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4354205, 0.49438906, -36.174187)
+
+[node name="WallSpawn1" type="Marker3D" parent="SpawnPoints" unique_id=1481147560 groups=["wall_spawn_left"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.130326, 3.6609583, -36.174187)
+
+[node name="WallSpawn2" type="Marker3D" parent="SpawnPoints" unique_id=789630503 groups=["wall_spawn_right"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1610236, 3.6609583, -36.174187)
+
+[node name="AirSpawn" type="Marker3D" parent="SpawnPoints" unique_id=154027837 groups=["air_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0068879128, 4.666077, -36.174187)
+
+[node name="SpawnManager" type="Node3D" parent="." unique_id=2140640369]
+script = ExtResource("6_21xkr")
+vampire_scene = ExtResource("2_bo1nx")
+ghost_scene = ExtResource("4_jjvhh")
+moth_scene = ExtResource("3_8gbba")

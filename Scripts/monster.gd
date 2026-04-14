@@ -6,7 +6,7 @@ var health = 1000
 var dying := false
 var _caught_player := false
 
-const CATCH_DISTANCE = 1.5
+const CATCH_DISTANCE = 2.0
 
 # Reference to the visual node (Sprite3D)
 var sprite_node: Node = null
@@ -33,11 +33,11 @@ func _process(delta: float) -> void:
 	if dying or _caught_player:
 		return
 	var player = get_player()
-	if player and global_position.distance_to(player.global_position) <= CATCH_DISTANCE:
-		_catch_player()
+	if player and global_position.distance_to(player.global_position) < CATCH_DISTANCE:
+		catch_player()
 
 # Trigger game over when the monster reaches the player
-func _catch_player() -> void:
+func catch_player() -> void:
 	_caught_player = true
 	var main = get_tree().get_root().get_node_or_null("Main")
 	if main and main.has_method("trigger_game_over"):
@@ -59,7 +59,6 @@ func calculate_damage(intensity: float) -> float:
 func react_to_light(intensity):
 	var damage = calculate_damage(intensity)
 	health -= damage
-	print("Monster hit by light! Health: ", health)
 
 	# Glow red when taking damage
 	if sprite_node:

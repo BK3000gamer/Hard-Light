@@ -126,7 +126,6 @@ func check_monsters():
 
 	for body in light_area.get_overlapping_bodies():
 		if body.is_in_group("monsters"):
-			print("Monster in flashlight area: ", body.name)
 			body.react_to_light(light_intensity)
 
 func update_light_visuals():
