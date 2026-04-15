@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bctr63qrhmdo" path="res://Addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://fqjxn8puyj18" path="res://Scripts/flashlight.gd" id="2_mpk8l"]
-[ext_resource type="Script" uid="uid://dyyrks2c08keh" path="res://Addons/proto_controller/hud.gd" id="3_62upf"]
+[ext_resource type="Script" path="res://Addons/proto_controller/hud.gd" id="3_62upf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_njsuj"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -56,6 +56,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="Flashlight" type="Node3D" parent="Head/Camera3D" unique_id=1941206775]
 script = ExtResource("2_mpk8l")
+FLASHLIGHT_MAX_BEAM_ANGLE = 50
+FLASHLIGHT_MIN_BEAM_ANGLE = 10
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D/Flashlight" unique_id=1604275369]
 light_energy = 3.0
