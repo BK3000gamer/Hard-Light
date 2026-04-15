@@ -24,16 +24,22 @@ func spawn_monster() -> void:
 		0:
 			spawn_vampire()
 		1:
-			spawn_ghost()
+			# spawn_ghost()
+			spawn_vampire() # Temporary: spawn vampire instead of ghost until ghost is implemented
 		2:
-			spawn_moth()
+			# spawn_moth()
+			spawn_vampire() # Temporary: spawn vampire instead of moth until moth is implemented
 
 func spawn_vampire() -> void:
-	var spawn_points = get_tree().get_nodes_in_group("floor_spawn")
-	var point = spawn_points.pick_random()
+	var path: Path3D = null
+
+	var paths = get_tree().get_nodes_in_group("floor_path")
+	path = paths.pick_random()
 
 	var vampire = vampire_scene.instantiate()
-	vampire.global_transform = point.global_transform
+	position = path.curve.sample_baked(0)
+	vampire.global_position = position + Vector3(0, 2, 0)
+	vampire.set_path(path)
 	add_child(vampire)
 
 func spawn_moth() -> void:
@@ -65,14 +71,6 @@ func spawn_ghost():
 			group_name = "wall_spawn_right"
 			var paths = get_tree().get_nodes_in_group("wall_path_right")
 			path = paths.pick_random()
-
-	# var points = get_tree().get_nodes_in_group(group_name)
-	
-	# if points.is_empty():
-	# 	print("No spawn points found for type: " + spawn_surface)
-	# 	return
-
-	# var point = points.pick_random()
 
 	var ghost = ghost_scene.instantiate()
 	ghost.global_position = path.curve.sample_baked(0)

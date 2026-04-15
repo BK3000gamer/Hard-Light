@@ -3,10 +3,12 @@ extends Monster
 const MONSTER_TYPE = "vampire"
 const GRAVITY = 9.8
 
-@onready var _nav_agent: NavigationAgent3D = $NavigationAgent3D
-
 @export var speed = 2.0
 @export var initial_health = 1500
+
+var path: Path3D = null
+var progress: float = 0.0
+var catched := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,36 +17,34 @@ func _ready() -> void:
 	monster_type = MONSTER_TYPE
 
 func _physics_process(delta: float) -> void:
-	if dying:
+	if dying or not path:
 		return
 	var player = get_player()
-	if not player or not _nav_agent:
+	if not player:
 		return
 
-	_nav_agent.target_position = player.global_position
+	progress += speed * delta
 
-	# Apply gravity
-	if not is_on_floor():
-		velocity.y -= GRAVITY * delta
-	else:
-		velocity.y = 0.0
+	var curve = path.curve
+	var path_length = curve.get_baked_length()
 
-	# Follow nav path toward player
-	if not _nav_agent.is_navigation_finished():
-		var next_pos = _nav_agent.get_next_path_position()
-		var dir = (next_pos - global_position)
-		dir.y = 0.0
-		dir = dir.normalized()
-		velocity.x = dir.x * speed
-		velocity.z = dir.z * speed
-	else:
-		velocity.x = 0.0
-		velocity.z = 0.0
+	# Loop or clamp
+	var distance = progress
+	if distance > path_length:
+		if catched == false:
+			catch_player()
+			catched = true
+		return
 
-	move_and_slide()
+	var position_on_path = curve.sample_baked(distance)
+	global_position = position_on_path
 
 func react_to_light(intensity):
 	super.react_to_light(intensity)
+
+func set_path(new_path: Path3D) -> void:
+	path = new_path
+	progress = 0.0
 
 func get_monster_type() -> String:
 	return MONSTER_TYPE

@@ -1,7 +1,5 @@
 extends Monster
 
-@onready var _nav_agent: NavigationAgent3D = $NavigationAgent3D
-
 const MONSTER_TYPE = "ghost"
 
 @export var speed = 2.4

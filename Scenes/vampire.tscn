@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3p44q2kk23r3" path="res://Assets/Sprites/sprite_sheet_3.png" id="2_vowtw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vowtw"]
-size = Vector3(1.3688965, 2.9874878, 0.109375)
+size = Vector3(1.3688965, 2.9958954, 0.109375)
 
 [sub_resource type="Animation" id="Animation_quynd"]
 length = 0.001
@@ -51,7 +51,7 @@ speed = 1.499999999999952
 initial_health = 3000
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=443500378]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04699707, -0.1049273, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04699707, -0.08881249, 0)
 shape = SubResource("BoxShape3D_vowtw")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=915660434]
@@ -60,6 +60,8 @@ billboard = 2
 texture = ExtResource("2_vowtw")
 hframes = 2
 vframes = 2
+
+[node name="PathFollow3D" type="PathFollow3D" parent="." unique_id=2014005855]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1044593042]
 debug_path_custom_color = Color(1, 0, 0, 1)
