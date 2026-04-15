@@ -49,32 +49,34 @@ func spawn_ghost():
 
 	var roll = randf()
 
-	if roll < 0.4:
-		spawn_surface = "floor"
-	elif roll < 0.7:
+	if roll < 0.5: 
 		spawn_surface = "left_wall"
 	else:
 		spawn_surface = "right_wall"
 
 	var group_name = ""
+	var path: Path3D = null
 	match spawn_surface:
 		"left_wall":
 			group_name = "wall_spawn_left"
+			var paths = get_tree().get_nodes_in_group("wall_path_left")
+			path = paths.pick_random()
 		"right_wall":
 			group_name = "wall_spawn_right"
-		"floor":
-			group_name = "floor_spawn"
+			var paths = get_tree().get_nodes_in_group("wall_path_right")
+			path = paths.pick_random()
 
-	var points = get_tree().get_nodes_in_group(group_name)
+	# var points = get_tree().get_nodes_in_group(group_name)
 	
-	if points.is_empty():
-		print("No spawn points found for type: " + spawn_surface)
-		return
+	# if points.is_empty():
+	# 	print("No spawn points found for type: " + spawn_surface)
+	# 	return
 
-	var point = points.pick_random()
+	# var point = points.pick_random()
 
 	var ghost = ghost_scene.instantiate()
-	ghost.global_transform = point.global_transform
+	ghost.global_position = path.curve.sample_baked(0)
 	ghost.set_surface(spawn_surface)
+	ghost.set_path(path)
 
 	add_child(ghost)

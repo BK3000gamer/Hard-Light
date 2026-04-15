@@ -39,6 +39,7 @@ func _process(delta: float) -> void:
 # Trigger game over when the monster reaches the player
 func catch_player() -> void:
 	_caught_player = true
+	print("Player caught by " + get_monster_type())
 	var main = get_tree().get_root().get_node_or_null("Main")
 	if main and main.has_method("trigger_game_over"):
 		main.trigger_game_over(get_monster_type())

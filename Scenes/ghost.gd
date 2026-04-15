@@ -3,53 +3,59 @@ extends Monster
 @onready var _nav_agent: NavigationAgent3D = $NavigationAgent3D
 
 const MONSTER_TYPE = "crawling_ghost"
-const SPEED = 3.5
+
+@export var speed = 2.4
+@export var initial_health = 1000
 
 var surface_mode = "floor"
 var _surface_normal = Vector3.UP
+var path: Path3D = null
+var progress: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health = 1500
+	health = initial_health
 	super()
 
 func _physics_process(delta: float) -> void:
-	if dying:
+	if dying or not path:
 		return
 	var player = get_player()
 	if not player:
 		return
 
-	# Direction to player projected onto the current surface plane
-	_nav_agent.target_position = player.global_position
-	var next_pos = _nav_agent.get_next_path_position()
-	var move_dir = (next_pos - global_position)
+	progress += speed * delta
 
-	# Project onto surface
-	# move_dir = move_dir - move_dir.dot(_surface_normal) * _surface_normal
+	var curve = path.curve
+	var path_length = curve.get_baked_length()
 
-	if move_dir.length() > 0.1:
-		move_dir = move_dir.normalized()
+	# Loop or clamp
+	var distance = progress
+	if distance > path_length:
+		catch_player()
+		return
+
+	var position_on_path = curve.sample_baked(distance)
+	global_position = position_on_path
+
+	var to_player = (player.global_position - global_position).normalized()
 
 	# Rotate smoothly: forward toward player along surface, up = surface normal
-	var target_basis = Basis.looking_at(move_dir, _surface_normal)
-	transform.basis = transform.basis.slerp(target_basis, delta * 8.0)
-
-	# Move along surface and press slightly into it to maintain contact
-	velocity = move_dir * SPEED + (-_surface_normal * 3.0)
-	up_direction = _surface_normal
-	move_and_slide()
+	var target_basis = Basis.looking_at(to_player, -_surface_normal)
+	transform.basis = transform.basis.slerp(target_basis, 0.1)
 
 func set_surface(mode: String) -> void:
 	surface_mode = mode
 
 	match surface_mode:
-		"floor":
-			_surface_normal = Vector3.UP
 		"left_wall":
 			_surface_normal = Vector3.RIGHT
 		"right_wall":
 			_surface_normal = Vector3.LEFT
+
+func set_path(new_path: Path3D) -> void:
+	path = new_path
+	progress = 0.0
 
 func react_to_light(intensity):
 	super.react_to_light(intensity)

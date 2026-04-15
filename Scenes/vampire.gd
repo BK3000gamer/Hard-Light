@@ -1,14 +1,16 @@
 extends Monster
 
 const MONSTER_TYPE = "vampire"
-const SPEED = 2.0
 const GRAVITY = 9.8
 
 @onready var _nav_agent: NavigationAgent3D = $NavigationAgent3D
 
+@export var speed = 2.0
+@export var initial_health = 1500
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health = 3000
+	health = initial_health
 	super()
 
 func _physics_process(delta: float) -> void:
@@ -32,8 +34,8 @@ func _physics_process(delta: float) -> void:
 		var dir = (next_pos - global_position)
 		dir.y = 0.0
 		dir = dir.normalized()
-		velocity.x = dir.x * SPEED
-		velocity.z = dir.z * SPEED
+		velocity.x = dir.x * speed
+		velocity.z = dir.z * speed
 	else:
 		velocity.x = 0.0
 		velocity.z = 0.0

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cvo2gstl1w5nh" path="res://Scenes/ghost.gd" id="2_ghost"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vpdtx"]
-size = Vector3(1.1716309, 0.96875, 0.036865234)
+size = Vector3(0.7597656, 0.82714844, 0.036865234)
 
 [node name="Ghost" type="CharacterBody3D" unique_id=1198102484]
 script = ExtResource("2_ghost")
@@ -19,3 +19,5 @@ texture = ExtResource("1_3mxmt")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2100267381]
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 1, 1)
+
+[node name="PathFollow3D" type="PathFollow3D" parent="." unique_id=845645498]

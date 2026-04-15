@@ -19,5 +19,4 @@ billboard = 2
 texture = ExtResource("1_m1etx")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1044593042]
-debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
