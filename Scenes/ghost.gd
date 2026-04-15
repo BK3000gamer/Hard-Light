@@ -7,6 +7,8 @@ const MONSTER_TYPE = "ghost"
 @export var speed = 2.4
 @export var initial_health = 1000
 
+var catched := false
+
 var surface_mode = "floor"
 var _surface_normal = Vector3.UP
 var path: Path3D = null
@@ -16,6 +18,7 @@ var progress: float = 0.0
 func _ready() -> void:
 	health = initial_health
 	super()
+	monster_type = MONSTER_TYPE
 
 func _physics_process(delta: float) -> void:
 	if dying or not path:
@@ -32,7 +35,9 @@ func _physics_process(delta: float) -> void:
 	# Loop or clamp
 	var distance = progress
 	if distance > path_length:
-		catch_player()
+		if catched == false:
+			catch_player()
+			catched = true
 		return
 
 	var position_on_path = curve.sample_baked(distance)

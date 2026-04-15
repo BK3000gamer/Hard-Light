@@ -44,10 +44,6 @@ func catch_player() -> void:
 	print("Player caught by " + get_monster_type())
 	var player = get_player()
 	player.game_over(monster_type)
-	await get_tree().create_timer(1.5).timeout
-	var main = get_tree().get_root().get_node_or_null("Main")
-	if main and main.has_method("trigger_game_over"):
-		main.trigger_game_over(get_monster_type())
 
 # Override in subclasses to return the monster's type string
 func get_monster_type() -> String:

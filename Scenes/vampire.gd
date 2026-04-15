@@ -12,6 +12,7 @@ const GRAVITY = 9.8
 func _ready() -> void:
 	health = initial_health
 	super()
+	monster_type = MONSTER_TYPE
 
 func _physics_process(delta: float) -> void:
 	if dying:

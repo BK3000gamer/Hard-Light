@@ -87,6 +87,12 @@ func release_mouse():
 func game_over(monster_type: String):
 	gameover = true
 	type = monster_type
+	print(type)
+
+func ending():
+	var main = get_tree().get_root().get_node_or_null("Main")
+	if main and main.has_method("trigger_game_over"):
+		main.trigger_game_over()
 
 ## Checks if some Input Actions haven't been created.
 ## Disables functionality accordingly.

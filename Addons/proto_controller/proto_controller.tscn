@@ -29,9 +29,27 @@ height = 1.8
 radius = 0.4
 height = 1.8
 
+[sub_resource type="Animation" id="Animation_eg828"]
+resource_name = "Ending"
+step = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"ending"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_1x0i6"]
 resource_name = "Ghost"
-length = 1.30001
+length = 1.3
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -48,7 +66,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_36wqk"]
 resource_name = "Moth"
-length = 0.90001
+length = 0.9
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -115,7 +133,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_64ncp"]
 resource_name = "Vampire"
-length = 0.90001
+length = 0.9
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -132,6 +150,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eg828"]
 _data = {
+&"Ending": SubResource("Animation_eg828"),
 &"Ghost": SubResource("Animation_1x0i6"),
 &"Moth": SubResource("Animation_36wqk"),
 &"Normal": SubResource("Animation_d1dat"),
@@ -139,6 +158,9 @@ _data = {
 &"Reload": SubResource("Animation_i1ppm"),
 &"Vampire": SubResource("Animation_64ncp")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_61f6o"]
+animation = &"Ending"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_64ncp"]
 animation = &"Ghost"
@@ -191,6 +213,8 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ff10e"]
+states/Ending/node = SubResource("AnimationNodeAnimation_61f6o")
+states/Ending/position = Vector2(901.5476, 32.0795)
 states/Ghost/node = SubResource("AnimationNodeAnimation_64ncp")
 states/Ghost/position = Vector2(493, 85)
 states/Moth/node = SubResource("AnimationNodeAnimation_1x0i6")
@@ -202,7 +226,7 @@ states/Reload/position = Vector2(493, 12)
 states/Start/position = Vector2(123, 47)
 states/Vampire/node = SubResource("AnimationNodeAnimation_6ifmv")
 states/Vampire/position = Vector2(477, 212)
-transitions = ["Start", "Normal", SubResource("AnimationNodeStateMachineTransition_i1ppm"), "Normal", "Reload", SubResource("AnimationNodeStateMachineTransition_eg828"), "Normal", "Ghost", SubResource("AnimationNodeStateMachineTransition_61f6o"), "Normal", "Moth", SubResource("AnimationNodeStateMachineTransition_mqm44"), "Normal", "Vampire", SubResource("AnimationNodeStateMachineTransition_gygv2"), "Reload", "Normal", SubResource("AnimationNodeStateMachineTransition_yt3b4"), "Ghost", "End", SubResource("AnimationNodeStateMachineTransition_c0o30"), "Moth", "End", SubResource("AnimationNodeStateMachineTransition_p5fg5"), "Vampire", "End", SubResource("AnimationNodeStateMachineTransition_1b7ai")]
+transitions = ["Start", "Normal", SubResource("AnimationNodeStateMachineTransition_i1ppm"), "Normal", "Reload", SubResource("AnimationNodeStateMachineTransition_eg828"), "Normal", "Ghost", SubResource("AnimationNodeStateMachineTransition_61f6o"), "Normal", "Moth", SubResource("AnimationNodeStateMachineTransition_mqm44"), "Normal", "Vampire", SubResource("AnimationNodeStateMachineTransition_gygv2"), "Reload", "Normal", SubResource("AnimationNodeStateMachineTransition_yt3b4"), "Ghost", "Ending", SubResource("AnimationNodeStateMachineTransition_c0o30"), "Moth", "Ending", SubResource("AnimationNodeStateMachineTransition_p5fg5"), "Vampire", "Ending", SubResource("AnimationNodeStateMachineTransition_1b7ai")]
 graph_offset = Vector2(72.5476, -7.9205017)
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=575189029]
