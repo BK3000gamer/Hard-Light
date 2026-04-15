@@ -6,13 +6,15 @@ var health = 1000
 var dying := false
 var _caught_player := false
 
-const CATCH_DISTANCE = 2.0
+const CATCH_DISTANCE = 4.0
 
 # Reference to the visual node (Sprite3D)
 var sprite_node: Node = null
 
 # Timer for glow effect
 var _glow_timer: Timer = null
+
+var monster_type: String
 
 # Called when the node enters the scene tree for the first time.
 
@@ -40,6 +42,9 @@ func _process(delta: float) -> void:
 func catch_player() -> void:
 	_caught_player = true
 	print("Player caught by " + get_monster_type())
+	var player = get_player()
+	player.game_over(monster_type)
+	await get_tree().create_timer(1.5).timeout
 	var main = get_tree().get_root().get_node_or_null("Main")
 	if main and main.has_method("trigger_game_over"):
 		main.trigger_game_over(get_monster_type())
@@ -91,4 +96,3 @@ func die():
 # Called when fade-out is done
 func _on_fade_out_finished():
 	queue_free()
-

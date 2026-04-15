@@ -1,22 +1,69 @@
 [gd_scene format=3 uid="uid://c7dtn8wnss6pa"]
 
-[ext_resource type="Texture2D" uid="uid://eibjlb8ssjh1" path="res://Assets/Sprites/TestSprites/halloween-vampire-character-collection-posititon-2.PNG" id="1_m1etx"]
 [ext_resource type="Script" uid="uid://dme514130kjnn" path="res://Scenes/vampire.gd" id="1_vowtw"]
+[ext_resource type="Texture2D" uid="uid://b3p44q2kk23r3" path="res://Assets/Sprites/sprite_sheet_3.png" id="2_vowtw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vowtw"]
-size = Vector3(1.3681641, 1.8735352, 0.109375)
+size = Vector3(1.3688965, 2.9874878, 0.109375)
+
+[sub_resource type="Animation" id="Animation_quynd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_l7ais"]
+resource_name = "Walk"
+length = 1.3333668
+loop_mode = 1
+step = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.6666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f5xx6"]
+_data = {
+&"RESET": SubResource("Animation_quynd"),
+&"Walk": SubResource("Animation_l7ais")
+}
 
 [node name="Vampire" type="CharacterBody3D" unique_id=1110000005]
 script = ExtResource("1_vowtw")
+speed = 1.499999999999952
+initial_health = 3000
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=443500378]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06640625, 0.008811712, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04699707, -0.1049273, 0)
 shape = SubResource("BoxShape3D_vowtw")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=915660434]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.013745725, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.14099073, -0.013745725, 0)
 billboard = 2
-texture = ExtResource("1_m1etx")
+texture = ExtResource("2_vowtw")
+hframes = 2
+vframes = 2
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1044593042]
 debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=656396573]
+libraries/ = SubResource("AnimationLibrary_f5xx6")
+autoplay = &"Walk"

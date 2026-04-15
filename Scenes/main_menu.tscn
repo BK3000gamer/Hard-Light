@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bacl1yje8ixh0"]
+[gd_scene format=3 uid="uid://115y5fv5jcc6"]
 
 [ext_resource type="Script" uid="uid://c31yrdrikja6j" path="res://Scripts/main_menu.gd" id="1_menu"]
-[ext_resource type="Texture2D" uid="uid://do6vwm1odll" path="res://Assets/HARDLIGHT_main_menu.png" id="2_48xlc"]
+[ext_resource type="Texture2D" uid="uid://b4jx6flb8w1ck" path="res://Assets/Sprites/Untitled_Artwork.png" id="2_48xlc"]
 
 [node name="main_menu" type="Control" unique_id=1255760534]
 layout_mode = 3
@@ -80,15 +80,6 @@ offset_left = -199.60004
 offset_top = -106.96008
 offset_right = 198.39996
 offset_bottom = 107.03992
-
-[node name="Label" type="Label" parent="ColorRect/TextureRect" unique_id=42858697]
-layout_mode = 0
-offset_left = 905.0
-offset_top = 83.0
-offset_right = 1000.0
-offset_bottom = 106.0
-text = "HARD LIGHT"
-horizontal_alignment = 1
 
 [connection signal="pressed" from="ColorRect/TextureRect/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/Test" to="." method="_on_test_pressed"]

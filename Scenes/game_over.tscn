@@ -1,41 +1,17 @@
-[gd_scene format=3 uid="uid://byswe5slgak2k"]
+[gd_scene format=3 uid="uid://b2w66iimn3ubs"]
 
-[ext_resource type="Script" uid="uid://bf0rlxpa1wtxe" path="res://Scripts/game_over.gd" id="1_ojehl"]
+[ext_resource type="Script" path="res://Scripts/game_over.gd" id="1_ojehl"]
+[ext_resource type="Texture2D" uid="uid://w1sb244r7u3k" path="res://Assets/Sprites/Game_Over.png" id="2_8fo1c"]
 
 [node name="GameOver" type="CanvasLayer" unique_id=227983165]
 process_mode = 3
 layer = 100
 script = ExtResource("1_ojehl")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=930708779]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0.003921569, 1)
-
-[node name="JumpScareVideo" type="VideoStreamPlayer" parent="." unique_id=911695007]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand = true
-
-[node name="GameOverLabel" type="Label" parent="." unique_id=425710899]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "GAME OVER"
+[node name="TextureRect" type="TextureRect" parent="." unique_id=948836889]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_8fo1c")
 
 [node name="RestartButton" type="Button" parent="." unique_id=723826053]
 anchors_preset = -1
@@ -44,9 +20,9 @@ anchor_top = 0.544
 anchor_right = 0.5
 anchor_bottom = 0.544
 offset_left = -32.0
-offset_top = -15.52002
+offset_top = -58.52002
 offset_right = 33.0
-offset_bottom = 15.47998
+offset_bottom = -27.52002
 grow_horizontal = 2
 grow_vertical = 2
 action_mode = 0
@@ -59,14 +35,13 @@ anchor_top = 0.587
 anchor_right = 0.5
 anchor_bottom = 0.587
 offset_left = -46.0
-offset_top = -15.960022
+offset_top = -58.960022
 offset_right = 50.0
-offset_bottom = 15.039978
+offset_bottom = -27.960022
 grow_horizontal = 2
 grow_vertical = 2
 action_mode = 0
 text = "Main Menu"
 
-[connection signal="finished" from="JumpScareVideo" to="." method="_on_video_finished"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]

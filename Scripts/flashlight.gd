@@ -20,6 +20,11 @@ var light_cone_shape: ConvexPolygonShape3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_reload_timer = Timer.new()
+	_reload_timer.one_shot = true
+	_reload_timer.wait_time = 1.4
+	_reload_timer.connect("timeout", Callable(self, "_on_reload_finished"))
+	add_child(_reload_timer)
 	print("Flashlight ready")
 	create_light_area()
 

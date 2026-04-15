@@ -18,6 +18,7 @@ func _ready() -> void:
 	add_child(_wander_timer)
 	super()
 	_wander_timer.start()
+	monster_type = MONSTER_TYPE
 
 func _on_wander_tick() -> void:
 	_wander_offset = Vector3(

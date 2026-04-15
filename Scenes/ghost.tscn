@@ -1,23 +1,69 @@
 [gd_scene format=3 uid="uid://qyhsv7wnfjpl"]
 
-[ext_resource type="Texture2D" uid="uid://brsibo5f6a5ul" path="res://Assets/Sprites/TestSprites/halloween-ghost-character-collection-with-flat-design.png" id="1_3mxmt"]
+[ext_resource type="Texture2D" uid="uid://cgy3n75n23ef2" path="res://Assets/Sprites/sprite_sheet_6.png" id="2_e3r4w"]
 [ext_resource type="Script" uid="uid://cvo2gstl1w5nh" path="res://Scenes/ghost.gd" id="2_ghost"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vpdtx"]
-size = Vector3(0.7597656, 0.82714844, 0.036865234)
+size = Vector3(1.1015625, 0.7459717, 0.036865234)
+
+[sub_resource type="Animation" id="Animation_108wt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3btnm"]
+resource_name = "Walk"
+length = 0.6250125
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_taxxh"]
+_data = {
+&"RESET": SubResource("Animation_108wt"),
+&"Walk": SubResource("Animation_3btnm")
+}
 
 [node name="Ghost" type="CharacterBody3D" unique_id=1198102484]
 script = ExtResource("2_ghost")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1094743867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050720215, 0)
 shape = SubResource("BoxShape3D_vpdtx")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1834587777]
 transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
-texture = ExtResource("1_3mxmt")
+texture = ExtResource("2_e3r4w")
+hframes = 3
+vframes = 2
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2100267381]
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 
 [node name="PathFollow3D" type="PathFollow3D" parent="." unique_id=845645498]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2002260926]
+libraries/ = SubResource("AnimationLibrary_taxxh")
+autoplay = &"Walk"

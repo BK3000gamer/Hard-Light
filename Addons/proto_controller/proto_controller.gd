@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @export_group("Speeds")
 ## Look around rotation speed.
-@export var look_speed : float = 0.002
+@export var look_speed : float = 0.0002
 
 @export_group("Input Actions")
 ## Name of Input Action to Increase flashlight beam angle.
@@ -14,7 +14,8 @@ extends CharacterBody3D
 ## Name of Input Action to Decrease flashlight intensity.
 @export var input_flashlight_intensity_down : String = "flashlight_intensity_down"
 
-
+var gameover := false
+var type : String
 var mouse_captured : bool = false
 var look_rotation : Vector2
 
@@ -22,6 +23,7 @@ var look_rotation : Vector2
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
 @onready var flashlight : Flashlight = get_node("Head/Camera3D/Flashlight") as Flashlight
+@onready var animation := $AnimationPlayer
 
 func _ready() -> void:
 	add_to_group("player")
@@ -43,6 +45,9 @@ func _input(event: InputEvent) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	pass
 
+func _process(delta: float) -> void:
+	pass
+		
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed(input_flashlight_intensity_up) and flashlight.light_intensity < flashlight.FLASHLIGHT_MAX_INTENSITY:
@@ -79,6 +84,9 @@ func release_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
 
+func game_over(monster_type: String):
+	gameover = true
+	type = monster_type
 
 ## Checks if some Input Actions haven't been created.
 ## Disables functionality accordingly.

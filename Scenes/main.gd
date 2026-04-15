@@ -16,4 +16,3 @@ func trigger_game_over(monster_type: String) -> void:
 
 func _process(delta: float) -> void:
 	pass
-

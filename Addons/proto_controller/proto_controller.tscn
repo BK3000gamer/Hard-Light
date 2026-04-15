@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bctr63qrhmdo" path="res://Addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://fqjxn8puyj18" path="res://Scripts/flashlight.gd" id="2_mpk8l"]
 [ext_resource type="Script" path="res://Addons/proto_controller/hud.gd" id="3_62upf"]
+[ext_resource type="Texture2D" uid="uid://bqd7e8syfc535" path="res://Assets/Sprites/sprite_sheet.png" id="4_64ncp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_njsuj"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,6 +28,182 @@ height = 1.8
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iof21"]
 radius = 0.4
 height = 1.8
+
+[sub_resource type="Animation" id="Animation_1x0i6"]
+resource_name = "Ghost"
+length = 1.30001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_36wqk"]
+resource_name = "Moth"
+length = 0.90001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16, 17, 18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_d1dat"]
+resource_name = "Normal"
+length = 0.50001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [22]
+}
+
+[sub_resource type="Animation" id="Animation_6ifmv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i1ppm"]
+resource_name = "Reload"
+length = 1.40001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 1, 1.1, 1.2, 1.3000001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+}
+
+[sub_resource type="Animation" id="Animation_64ncp"]
+resource_name = "Vampire"
+length = 0.90001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [46, 47, 48, 49, 50, 51, 52, 53, 54]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eg828"]
+_data = {
+&"Ghost": SubResource("Animation_1x0i6"),
+&"Moth": SubResource("Animation_36wqk"),
+&"Normal": SubResource("Animation_d1dat"),
+&"RESET": SubResource("Animation_6ifmv"),
+&"Reload": SubResource("Animation_i1ppm"),
+&"Vampire": SubResource("Animation_64ncp")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_64ncp"]
+animation = &"Ghost"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1x0i6"]
+animation = &"Moth"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_36wqk"]
+animation = &"Normal"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1dat"]
+animation = &"Reload"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ifmv"]
+animation = &"Vampire"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i1ppm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eg828"]
+advance_mode = 2
+advance_expression = "flashlight.reloading"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_61f6o"]
+advance_mode = 2
+advance_expression = "gameover and type == \"ghost\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mqm44"]
+advance_mode = 2
+advance_expression = "gameover and type == \"moth\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gygv2"]
+advance_mode = 2
+advance_expression = "gameover and monster_type == \"vampire\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yt3b4"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c0o30"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p5fg5"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1b7ai"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ff10e"]
+states/Ghost/node = SubResource("AnimationNodeAnimation_64ncp")
+states/Ghost/position = Vector2(493, 85)
+states/Moth/node = SubResource("AnimationNodeAnimation_1x0i6")
+states/Moth/position = Vector2(486, 146)
+states/Normal/node = SubResource("AnimationNodeAnimation_36wqk")
+states/Normal/position = Vector2(336, 35)
+states/Reload/node = SubResource("AnimationNodeAnimation_d1dat")
+states/Reload/position = Vector2(493, 12)
+states/Start/position = Vector2(123, 47)
+states/Vampire/node = SubResource("AnimationNodeAnimation_6ifmv")
+states/Vampire/position = Vector2(477, 212)
+transitions = ["Start", "Normal", SubResource("AnimationNodeStateMachineTransition_i1ppm"), "Normal", "Reload", SubResource("AnimationNodeStateMachineTransition_eg828"), "Normal", "Ghost", SubResource("AnimationNodeStateMachineTransition_61f6o"), "Normal", "Moth", SubResource("AnimationNodeStateMachineTransition_mqm44"), "Normal", "Vampire", SubResource("AnimationNodeStateMachineTransition_gygv2"), "Reload", "Normal", SubResource("AnimationNodeStateMachineTransition_yt3b4"), "Ghost", "End", SubResource("AnimationNodeStateMachineTransition_c0o30"), "Moth", "End", SubResource("AnimationNodeStateMachineTransition_p5fg5"), "Vampire", "End", SubResource("AnimationNodeStateMachineTransition_1b7ai")]
+graph_offset = Vector2(72.5476, -7.9205017)
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=575189029]
 script = ExtResource("1_ucva2")
@@ -57,7 +234,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 [node name="Flashlight" type="Node3D" parent="Head/Camera3D" unique_id=1941206775]
 script = ExtResource("2_mpk8l")
 FLASHLIGHT_MAX_BEAM_ANGLE = 50
-FLASHLIGHT_MIN_BEAM_ANGLE = 10
+FLASHLIGHT_MIN_BEAM_ANGLE = 1
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D/Flashlight" unique_id=1604275369]
 light_energy = 3.0
@@ -86,3 +263,19 @@ offset_top = -50.0
 offset_right = 472.0
 grow_vertical = 0
 step = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="HUD" unique_id=86049571]
+modulate = Color(0.5171842, 0.51718456, 0.5171844, 1)
+position = Vector2(960, 540)
+texture = ExtResource("4_64ncp")
+hframes = 8
+vframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=108160778]
+libraries/ = SubResource("AnimationLibrary_eg828")
+autoplay = &"Normal"
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=51910556]
+tree_root = SubResource("AnimationNodeStateMachine_ff10e")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
