@@ -9,15 +9,12 @@ class_name Flashlight
 @export var FLASHLIGHT_MAX_INTENSITY = 15
 @export var FLASHLIGHT_MIN_INTENSITY = 3
 
-var beam_angle = 25.0
-var light_intensity = 3.0
-var debug_enabled = true  # Toggle this to show/hide debug visualization
-var use_mesh_debug = true  # Use mesh-based cone debug visualization
+var beam_angle = FLASHLIGHT_MIN_BEAM_ANGLE
+var light_intensity = FLASHLIGHT_MIN_INTENSITY
 var light_battery = 100.0  # Percentage of battery remaining
 var reloading = false
 var _reload_timer: Timer = null
 
-@onready var debug_cone: MeshInstance3D
 var light_area: Area3D
 var light_cone_shape: ConvexPolygonShape3D
 
@@ -25,41 +22,6 @@ var light_cone_shape: ConvexPolygonShape3D
 func _ready() -> void:
 	print("Flashlight ready")
 	create_light_area()
-	if use_mesh_debug:
-		create_debug_cone()
-		print("Debug cone created: ", debug_cone != null)
-	_reload_timer = Timer.new()
-	_reload_timer.one_shot = true
-	_reload_timer.wait_time = 2.0
-	_reload_timer.connect("timeout", Callable(self, "_on_reload_finished"))
-	add_child(_reload_timer)
-
-
-# Debug visual to see the flashlight's area
-func create_debug_cone():
-	debug_cone = MeshInstance3D.new()
-	var cone_mesh = CylinderMesh.new()
-	cone_mesh.top_radius = 0.0
-	
-	# Use a default range if light.spot_range is 0
-	var range = max(light.spot_range, 10.0)  # Default to 10 if not set
-	cone_mesh.bottom_radius = tan(deg_to_rad(beam_angle / 2)) * range
-	cone_mesh.height = range
-	
-	var material = StandardMaterial3D.new()
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	material.albedo_color = Color(1, 1, 0, 0.3)  # Yellow semi-transparent
-	material.cull_mode = BaseMaterial3D.CULL_DISABLED  # Make sure both sides are visible
-	debug_cone.material_override = material
-	debug_cone.mesh = cone_mesh
-	
-	# Position the cone so the tip is at the flashlight's position
-	# In Godot, forward is -Z, so we position it forward and rotate to point that way
-	debug_cone.position.z = -range / 2  # Center the cone on the flashlight
-	debug_cone.rotation.x = PI / 2  # Rotate to point forward (-Z direction)
-	
-	add_child(debug_cone)
-	debug_cone.visible = false
 
 func create_light_area():
 	light_area = Area3D.new()
@@ -105,20 +67,27 @@ func _process(delta: float) -> void:
 		light.visible = mouse_button_held
 	else:
 		light.visible = false
-	
-	if debug_enabled and use_mesh_debug and debug_cone:
-		var was_visible = debug_cone.visible
-		debug_cone.visible = mouse_button_held
-		if was_visible != debug_cone.visible:
-			print("Debug cone visibility changed to: ", debug_cone.visible)
 
 	if light_area:
 		light_area.monitoring = mouse_button_held
 
-	if mouse_button_held and light_battery > 0 and not reloading:
+	if mouse_button_held or InputEventMouseMotion.pressure > 0 and light_battery > 0 and not reloading:
 		check_monsters()
 		update_light_visuals()
 		calculate_battery_drain(delta)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		handle_tablet_input(event)
+
+func handle_tablet_input(event: InputEventMouseMotion):
+	light_intensity = lerp(FLASHLIGHT_MIN_INTENSITY, FLASHLIGHT_MAX_INTENSITY, event.pressure)
+	light_intensity = clamp(light_intensity, FLASHLIGHT_MIN_INTENSITY, FLASHLIGHT_MAX_INTENSITY)
+
+	var tilt_x = (event.tilt.x + 1) / 2  # Normalize tilt_x from [-1, 1] to [0, 1]
+	beam_angle = lerp(FLASHLIGHT_MIN_BEAM_ANGLE, FLASHLIGHT_MAX_BEAM_ANGLE, tilt_x)
+	beam_angle = clamp(beam_angle, FLASHLIGHT_MIN_BEAM_ANGLE, FLASHLIGHT_MAX_BEAM_ANGLE)
+
 
 func check_monsters():
 	if not light_area:
@@ -149,11 +118,6 @@ func update_light_visuals():
 		
 		light_cone_shape.points = points
 
-	if debug_cone and debug_cone.mesh is CylinderMesh:
-		debug_cone.mesh.height = range
-		debug_cone.position.z = -range / 2
-		debug_cone.mesh.bottom_radius = tan(deg_to_rad(beam_angle / 2)) * range
-
 func calculate_battery_drain(delta):
 	var drain_rate = 5.0  # Percentage drained per second at full intensity and max beam angle
 	var intensity_factor = light_intensity / FLASHLIGHT_MAX_INTENSITY
@@ -174,4 +138,3 @@ func _on_reload_finished():
 	light_battery = 100.0
 	reloading = false
 	print("Battery reloaded!")
-

@@ -43,6 +43,10 @@ flashlight_intensity_down={
 ]
 }
 
+[input_devices]
+
+pen_tablet/driver.windows="winink"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
