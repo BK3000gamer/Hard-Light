@@ -10,9 +10,9 @@ ssao_enabled = true
 glow_enabled = true
 glow_normalized = true
 glow_intensity = 2.0
-glow_bloom = 1.0
+glow_bloom = 0.5
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.1
+volumetric_fog_density = 0.15
 volumetric_fog_albedo = Color(0.446777, 0.44677705, 0.44677693, 1)
 volumetric_fog_emission = Color(0, 0.26, 0.24700001, 1)
 volumetric_fog_emission_energy = 0.2
@@ -23,7 +23,7 @@ volumetric_fog_length = 128.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1725028751]
 environment = SubResource("Environment_ys1qc")
 
-[node name="test" parent="." unique_id=223946352 instance=ExtResource("1_8od7v")]
+[node name="test" parent="." unique_id=1318380529 instance=ExtResource("1_8od7v")]
 
 [node name="ProtoController" parent="." unique_id=575189029 instance=ExtResource("2_qc4db")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 24, -3, 0)
@@ -34,6 +34,10 @@ visible = false
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1236321749]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 12.437558, 2.25, -1.0919821)
+light_energy = 0.5
+omni_attenuation = 2.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=943901930]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.0005180032, 2.25, -3.2014214e-09)
+light_energy = 0.5
+omni_attenuation = 2.0
