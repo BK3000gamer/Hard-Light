@@ -194,7 +194,7 @@ advance_expression = "gameover and type == \"moth\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gygv2"]
 advance_mode = 2
-advance_expression = "gameover and monster_type == \"vampire\""
+advance_expression = "gameover and type == \"vampire\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yt3b4"]
 switch_mode = 2

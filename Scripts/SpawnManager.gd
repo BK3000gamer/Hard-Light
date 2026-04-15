@@ -25,10 +25,10 @@ func spawn_monster() -> void:
 			spawn_vampire()
 		1:
 			# spawn_ghost()
-			spawn_vampire() # Temporary: spawn vampire instead of ghost until ghost is implemented
+			spawn_ghost()
 		2:
 			# spawn_moth()
-			spawn_vampire() # Temporary: spawn vampire instead of moth until moth is implemented
+			spawn_moth()
 
 func spawn_vampire() -> void:
 	var path: Path3D = null
