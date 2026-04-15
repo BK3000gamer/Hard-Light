@@ -174,4 +174,3 @@ func _on_reload_finished():
 	light_battery = 100.0
 	reloading = false
 	print("Battery reloaded!")
-
