@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 	if light_area:
 		light_area.monitoring = mouse_button_held
 
-	if mouse_button_held or InputEventMouseMotion.pressure > 0 and light_battery > 0 and not reloading:
+	if mouse_button_held and light_battery > 0 and not reloading:
 		check_monsters()
 		update_light_visuals()
 		calculate_battery_drain(delta)
