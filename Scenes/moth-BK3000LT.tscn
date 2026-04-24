@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dstbk7ve2grvr"]
+
+[ext_resource type="Script" uid="uid://bim583dj21i41" path="res://Scenes/moth.gd" id="1_825s6"]
+[ext_resource type="Texture2D" uid="uid://cmtklyoriwteg" path="res://Assets/Sprites/TestSprites/hand-drawn-sable-moth.png" id="1_nhgh0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_825s6"]
+size = Vector3(0.73535156, 1.6853027, 0.083984375)
+
+[node name="Moth" type="CharacterBody3D" unique_id=1637803805]
+script = ExtResource("1_825s6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1715639117]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -0.064454556, 0)
+shape = SubResource("BoxShape3D_825s6")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1563044643]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+texture = ExtResource("1_nhgh0")

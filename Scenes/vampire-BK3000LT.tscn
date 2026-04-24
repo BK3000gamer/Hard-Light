@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c7dtn8wnss6pa"]
+
+[ext_resource type="Texture2D" uid="uid://eibjlb8ssjh1" path="res://Assets/Sprites/TestSprites/halloween-vampire-character-collection-posititon-2.PNG" id="1_m1etx"]
+[ext_resource type="Script" uid="uid://dme514130kjnn" path="res://Scenes/vampire.gd" id="1_vowtw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vowtw"]
+size = Vector3(1.3681641, 1.8735352, 0.109375)
+
+[node name="Vampire" type="CharacterBody3D" unique_id=1110000005]
+script = ExtResource("1_vowtw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=443500378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06640625, 0.008811712, 0)
+shape = SubResource("BoxShape3D_vowtw")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=915660434]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.013745725, 0)
+billboard = 2
+texture = ExtResource("1_m1etx")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1044593042]
+debug_enabled = true
+debug_path_custom_color = Color(1, 0, 0, 1)
